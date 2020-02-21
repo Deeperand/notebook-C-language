@@ -1,0 +1,45 @@
+\chapter{C 程序设计初步}
+\section{C 程序的结构和处理过程}
+
+\section{C 语言的基本数据类型}
+
+\section{输入与输出}
+    \subsection{格式化输出: \Code{printf()}}
+        \paragraph{简单输出}
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                printf("<string>");
+            \end{lstlisting}
+            这条语句将直接输出字符串 \Code{<string>}
+
+
+        \paragraph{基本语法}
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                printf(%[-][*][m.n][l/h]<format_charactor>, <var_1>, <var_2>, ...);
+            \end{lstlisting}
+
+        其中各项的意义为:
+        \begin{enumerate}
+            \item \Code{\%}: 占位符, 一个变量对应一个占位符, 该占位符后面的那些字符表示对该变量的格式控制.
+            \item \Code{<format\_charactor>}: 控制数据输出的模式, 常用的格式输出符有见表\ref{tab: format charactor}
+                \begin{longtable}{|c|l|}
+                    \caption{options of format charactor} \label{tab: format charactor}\\
+                    \hline
+                    \multicolumn{1}{|c|}{format charactor} & \multicolumn{1}{c|}{meaning} \\
+
+                    \hline
+                    \Code{d} & decimal, 以 10 进制形式输出带符号整数, 正数不输出负号 \\
+                    \Code{o} & octal, 以 8 进制形式输出无符号整数, 无前缀 \Code{o} \\
+                    \Code{x} & hexadecimal, 以 16 进制形式输出无符号整数, 无前缀 \Code{ox} \\
+                    \Code{u} & unsign, 以 10 进制输出无符号整数 \\
+                    \Code{f} & float, 以小数形式输出单、双精度实数 \\
+                    \Code{e} & exponential, 以指数形式输出单、双精度实数 \\
+                    \Code{g} & 以 \Code{\%f} 或 \Code{\%e} 中较短的输出宽度输出 \\
+                    \Code{c} & char, 输出单个字符 \\
+                    \Code{s} & string, 输出字符串 \\
+                    \hline
+                \end{longtable}
+                \item \Code{l/h}: 长度修正符, 用于指定对应位置输出数据是按长类型数据输出还是按短类型数据输出.
+                \item \Code{m,n}: 域宽可选项, 用于指定对应输出项所占的输出宽度, 即指定用多少字符位置来显示对应输出数据.
+                \item \Code{*}: 对应输出表列中两个连续数据项, 其意义是用前一个数据项的值作为后一个数据项输出的指定域宽.
+                \item \Code{-}: 减号可选项, 用于指定对应输出数据的对齐方向. 当选用减号时, 输出数据左对齐, 否则右对齐.
+        \end{enumerate}

@@ -1,0 +1,14 @@
+\chapter{数组与字符串}
+\section{数组的定义及数组元素的引用}
+    \paragraph{数组的定义}
+        \begin{lstlisting}[language = {C}, gobble = 12]
+            <element_type> <array_name>[<array_length>];
+        \end{lstlisting}
+    \textbf{Notation :}
+    \begin{enumerate}
+        \item 数组索引从 0 开始
+    \end{enumerate}
+
+    \subsection{二维和多维数组}
+    \paragraph{数组存储规则}
+        对于多维数组, 其存储规则可以概括为: 序号越靠右, 存储优先级越高. 此外, 若将数组的序号看成是一个多进制数, (e.g., \Code{[8][9][2]} 看成数字892), 并记该数为 $a$, 则存储顺序是按照 $a$ 增加的顺序来的.
