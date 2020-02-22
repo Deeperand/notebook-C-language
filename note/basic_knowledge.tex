@@ -2,6 +2,33 @@
 \section{C 程序的结构和处理过程}
 
 \section{C 语言的基本数据类型}
+    \subsection{\Code{char}}
+        转义码表见表 \ref{tab: escape char}:
+            \begin{longtable}{|c|c|l|}
+                \caption{escape char}\label{tab: escape char}\\
+                \hline
+                \multicolumn{1}{|c|}{转义字符} & \multicolumn{1}{c|}{意义} & \multicolumn{1}{c|}{功能解释} \\
+                \hline
+
+                \Code{\textbackslash 0} & NULL & 字符串结束符 \\
+                \Code{\textbackslash b} & 退格 & 将光标左移一个字符 \\
+                \Code{\textbackslash n} & 换行 & 光标移向下一行的开始 \\
+                \Code{\textbackslash f} & 换页 & (打印机) 换到下一页 \\
+                \Code{\textbackslash t} & 水平制表符 & 把光标移到下一个制表位 \\
+                \Code{\textbackslash \textbackslash} & 反斜杠 & 输出反斜杠 \\
+                \Code{\textbackslash "} & 双引号 & 输出双引号 \\
+                \Code{\textbackslash '} & 单引号 & 输出单引号 \\
+                \Code{\textbackslash a} & 响铃 & 警报响铃 \\
+                \Code{\textbackslash <num><num><num>} & ASCII 字符 & 输出八进制数字对应的 ASCII 字符 \\
+                \Code{\textbackslash x<num><num>} & ASCII 字符 & 输出十六进制数字代表的 ASCII 字符 \\
+                \hline
+            \end{longtable}
+        
+        \textbf{Notation :}
+            \begin{enumerate}
+                \item \Code{printf('\%c', '\textbackslash 101')} 与 \Code{printf('\%c', 101)} 的输出值分别是 \Code{A} 与 \Code{e}. 这是由于前者按八进制获取 ASCII 字符, 后者进行了隐式的转义, 按照十进制获取 ASCII 字符.
+                \item ASCII 编码中, 数字 0 $\sim$ 9 对应的编码是 48 $\sim$ 47; 大写字母 A $\sim$ Z 对应的编码是 65 $\sim$ 90; 小写字母 a $\sim$ z 对应的编码是 97 $\sim$ 122
+            \end{enumerate}
 
 \section{输入与输出}
     \subsection{格式化输出: \Code{printf()}}
@@ -22,7 +49,7 @@
             \item \Code{\%}: 占位符, 一个变量对应一个占位符, 该占位符后面的那些字符表示对该变量的格式控制.
             \item \Code{<format\_charactor>}: 控制数据输出的模式, 常用的格式输出符有见表\ref{tab: format charactor}
                 \begin{longtable}{|c|l|}
-                    \caption{options of format charactor} \label{tab: format charactor}\\
+                    \caption{options of format charactor}\label{tab: format charactor}\\
                     \hline
                     \multicolumn{1}{|c|}{format charactor} & \multicolumn{1}{c|}{meaning} \\
 
@@ -43,6 +70,11 @@
                 \item \Code{*}: 对应输出表列中两个连续数据项, 其意义是用前一个数据项的值作为后一个数据项输出的指定域宽.
                 \item \Code{-}: 减号可选项, 用于指定对应输出数据的对齐方向. 当选用减号时, 输出数据左对齐, 否则右对齐.
         \end{enumerate}
+
+        \textbf{Notation :}
+            \begin{enumerate}
+                \item 若 \Code{a} 为 \Code{int} 类型的数据, 则表达式 \Code{printf("\%c", a)} 将会输出 \Code{a} 对应的 ASCII 码值.
+            \end{enumerate}
 
 \section{基本运算符和表达式运算}
     \subsection{自增与自减运算符}
