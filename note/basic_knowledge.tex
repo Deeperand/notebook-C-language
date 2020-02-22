@@ -43,3 +43,27 @@
                 \item \Code{*}: 对应输出表列中两个连续数据项, 其意义是用前一个数据项的值作为后一个数据项输出的指定域宽.
                 \item \Code{-}: 减号可选项, 用于指定对应输出数据的对齐方向. 当选用减号时, 输出数据左对齐, 否则右对齐.
         \end{enumerate}
+
+\section{基本运算符和表达式运算}
+    \subsection{自增与自减运算符}
+        自增运算符 (\Code{++}) 与自减运算符 (\Code{--}) 用以对变量进行增量赋值. 允许的语法有:
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                ++<var_name>;
+                --<var_name>;
+                <var_name>++;
+                <var_name>--;
+            \end{lstlisting}
+
+        \textbf{Notation :}
+            \begin{enumerate}
+                \item 前缀模式与后缀模式的返回值是不同的. 前缀模式返回变量进行了增量运算后的值, 后缀模式返回进行增量运算前的值. 如:
+                    \begin{lstlisting}[language = {C}, gobble = 24]
+                        int i = 5, j = 5;
+                        printf("%d, %d", ++i, j++);
+                    \end{lstlisting}
+                    该程序的返回值为:
+                    \begin{lstlisting}[gobble = 24]
+                        6, 5
+                    \end{lstlisting}
+                \item 自增、自减运算不能用于字面量
+            \end{enumerate}
