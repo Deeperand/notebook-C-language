@@ -1,34 +1,151 @@
 \chapter{C 程序设计初步}
 \section{C 程序的结构和处理过程}
+    \subsection{语言特点概览}
+        \begin{enumerate}
+            \item \textbf{关键字及控制语句:} 30 多个关键字, 9 种控制语句
+            \item \textbf{运算符:} 共有 34 种运算符
+            \item \textbf{数据类型:} 大致有 8 种: 整型, 实型, 字符型, 数组类型, 指针类型, 结构体类型, 共用体类型, 枚举类型
+        \end{enumerate}
+
+    \subsection{基本程序结构}
+        \hspace*{2em} 一下以一个输出 ``hello, world'' 的程序为例, 展现 C 程序的基本结构:
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                #include <stdio.h>
+
+                // comment 1
+                /* comment 2-1
+                 * comment 2-2
+                 * comment 2-3 */
+
+                int main() {
+                    printf("hello, world");
+                    return 0;
+                }
+            \end{lstlisting}
+
+        将其特点总结如下:
+            \begin{enumerate}
+                \item 在程序的头部通过 \Code{\#include <stdio.h>} 调用标准库头文件.
+                \item 用双斜线 \Code{//} 表示单行注释, 用双斜线插入星号 \Code{/**/} 表示多行注释
+                \item 只有一个名为 \Code{main} 的主程序. 在 \Code{main} 的后面有一对小括号 \Code{()}.
+                \item 主程序返回一个整数, 其值为 \Code{0}. 其实这是 Linux 系统的一种惯例, 程序执行成功则返回 \Code{0}, 失败则返回非 \Code{0} 错误吗.
+                \item 每一条单独的语句都以分号 \Code{;} 结尾, 忽略分号 \Code{;} 是初学者最容易犯的错误.
+                \item 用一对大括号 \Code{\{\}} 将主程序的内容括起.
+            \end{enumerate}
+
+    \subsection{C 程序处理过程}
+        \hspace*{2em} 基本处理过程可以分为代码编写, 程序编译, 连接程序, 运行与调试等四个部分.
+            \begin{enumerate}
+                \item \textbf{代码编写:} 除了使用各种 IDE (intergrated development environment, 集成开发环境) 以外, 使用 Vim, EMacs, VSCode 等文本编辑器也是不错的选择. 为减少语法错误, 还可以利用 \Code{ccls} 一类的静态语法检查工具.
+                \item \textbf{程序编译:} 常用的编译器有 \Code{gcc}, \Code{clang} 等. 若源程序没有语法错误, 在这一步将会生成二进制文件.
+                \item \textbf{链接程序:} 获得程序的目标文件后, 通过开发环境中的 ``连接'' 命令, 将目标文件和由开发环境提供的标准库函数, 启动代码等进行连接, 形成可执行文件 (后缀为 \Code{.exe}). (教材上是如此说明的, 故而原样照抄. 不知道这是不是 Windows 环境下的特有操作? Linux 环境下似乎可以直接运行编译得到的二进制文件, 感觉没有接触过连接程序这一步.)
+                \item \textbf{运行及调试:} 在没有语法错误的情况下, 代码输出结果仍然有可能存在问题, 此时需要进行调试.
+            \end{enumerate}
 
 \section{C 语言的基本数据类型}
-    \subsection{\Code{char}}
+    \subsection{C 语言的标识符}
+        \hspace*{2em} 用户使用的变量名, 函数名等统称为标识符, 标识符的使用有如下规则:
+            \begin{enumerate}
+                \item 只能由数字, 字母, 下划线构成
+                \item 第一个符号不能是数字
+                \item 标识符对大小写敏感
+                \item 不能用保留字作为用户标识符
+            \end{enumerate}
+
+    \subsection{变量声明}
+        \hspace*{2em} 与 Python, Perl, Julia 等动态语言不同, C 语言是静态语言, 变量在使用前必须进行声明 (后面将看到, 函数也是如此). 声明的一般形式为 (中括号内表示可选项):
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                <data_type> <var_1>[=<value_1>], <var_2>[=<value_2>], ...
+            \end{lstlisting}
+
+        可以看出, 变量声明的特点如下:
+            \begin{enumerate}
+                \item 可以一次声明多个变量
+                \item 可以在声明的同时对变量进行初始化
+            \end{enumerate}
+
+        % \begin{figure}
+        %     \centering
+        %     \caption{C 语言数据类型}
+        %     \begin{tikzpicture}
+        %         \node {数据类型}[edge from parent fork right, grow=right, level distance=3cm]
+        %         child {node {基本类型}
+        %             child {node {整型 (int, long)}}
+        %             child {node {实数型}
+        %                 child {node {\parbox{4em}{单精度型 (float)}}}
+        %                 child {node {\parbox{4em}{双精度型 (double)}}}
+        %             }
+        %         }
+        %         child {node {指针类型}}
+        %         child {node {空类型}}
+        %         child {node {构造类型}
+        %             child {node {数组类型}}
+        %             child {node {结构体类型}}
+        %             child {node {\parbox{4em}{嵌合体类型 (共用体类型)}}}
+        %             child {node {枚举类型}}
+        %         };
+        %     \end{tikzpicture}
+        % \end{figure}
+
+    \subsection{整型数据}
+        \hspace*{2em} 在 16 位计算机中, 整型数据占 16 个 bit, 也就是 2 个 byte. 若带符号, 则可表示范围为 -32,786 $\sim$ 32,767 ($-2^{15} \sim 2^{15} - 1$) 的整数. 若为 32 位的计算机, 则可表示范围为 -2,147,483,648 $\sim$ 2,147,483,647 ($-2^{31} \sim 2^{31} - 1$).
+
+        \hspace*{2em} C 语言中, 可以有十进制, 八进制, 十六进制三种整型常量:
+            \begin{enumerate}
+                \item \textbf{十进制整型常量:} 没有特殊标注时认为是十进制, 如: \Code{452}.
+                \item \textbf{八进制整型常量:} 以 \Code{0} 开头的是八进制整型常量, 如: \Code{0777}, \Code{-011}
+                \item \textbf{十六进制整型常量:} 以 \Code{0x} 开头的是十六进制整型常量, 如: \Code{0x123}, \Code{0xff}
+            \end{enumerate}
+
+        \hspace*{2em} 若按照数据位数来区分, 整型变量有\,\textbf{基本整型}, \textbf{短整型}, \textbf{长整型}, \textbf{无符号整型}\,四种, 依次通过关键字 \Code{int}, \Code{short}, \Code{long}, \Code{unsigned} 表示.
+
+    \subsection{实型数据}
+        \hspace*{2em} 实型数据又称\,\textbf{浮点型数据}, 一般有两种表示方法: \textbf{小数形式}\,与\,\textbf{指数形式}.
+
+        \hspace*{2em} 小数形式既一般的小数书写方法, 无须特别强调; 指数形式以 \Code{E} 或 \Code{e} 表示指数部分, 如: \Code{1.45e4}, \Code{2.5639E5}. 对于指数形式:
+            \begin{Notation}
+                \item 指数部分只能为整数, 如: \Code{1.53E1.5} 是错误的表示法.
+                \item 指数部分可以为负数, 如: \Code{4.53E-3}
+                \item 即使小数部分是 \Code{1} 也不能省略, 如: \Code{E4} 为错误的写法, 正确的写法应为 \Code{1E4}
+            \end{Notation}
+
+        \hspace*{2em} 按占据的比特数的不同, 可以将实型数据分为\,\textbf{单精度}\,与\,\textbf{双精度}\,两种, 二者分别用标识符 \Code{float} 与 \Code{double} 来进行声明. 其中, 单精度数占 4 个 bit, 可提供 6 $\sim$ 7 位有校数字; 双精度占 8 个 bit, 可提供 15 $\sim$ 16 位有校数字.
+
+    \subsection{字符型数据}
+        \hspace*{2em} 字符型数据用关键字 \Code{char} 进行声明. 字符型数据占 1 个字节.
+
         转义码表见表 \ref{tab: escape char}:
             \begin{longtable}{|c|c|l|}
-                \caption{escape char}\label{tab: escape char}\\
+                \caption{escape char}\label{tab: escape char} \\
                 \hline
                 \multicolumn{1}{|c|}{转义字符} & \multicolumn{1}{c|}{意义} & \multicolumn{1}{c|}{功能解释} \\
                 \hline
 
-                \Code{\textbackslash 0} & NULL & 字符串结束符 \\
-                \Code{\textbackslash b} & 退格 & 将光标左移一个字符 \\
-                \Code{\textbackslash n} & 换行 & 光标移向下一行的开始 \\
-                \Code{\textbackslash f} & 换页 & (打印机) 换到下一页 \\
-                \Code{\textbackslash t} & 水平制表符 & 把光标移到下一个制表位 \\
-                \Code{\textbackslash \textbackslash} & 反斜杠 & 输出反斜杠 \\
-                \Code{\textbackslash "} & 双引号 & 输出双引号 \\
-                \Code{\textbackslash '} & 单引号 & 输出单引号 \\
-                \Code{\textbackslash a} & 响铃 & 警报响铃 \\
-                \Code{\textbackslash <num><num><num>} & ASCII 字符 & 输出八进制数字对应的 ASCII 字符 \\
-                \Code{\textbackslash x<num><num>} & ASCII 字符 & 输出十六进制数字代表的 ASCII 字符 \\
+                \CodeA{\textbackslash 0} & NULL & 字符串结束符 \\
+                \CodeA{\textbackslash b} & 退格 & 将光标左移一个字符 \\
+                \CodeA{\textbackslash n} & 换行 & 光标移向下一行的开始 \\
+                \CodeA{\textbackslash f} & 换页 & (打印机) 换到下一页 \\
+                \CodeA{\textbackslash t} & 水平制表符 & 把光标移到下一个制表位 \\
+                \CodeA{\textbackslash \textbackslash} & 反斜杠 & 输出反斜杠 \\
+                \CodeA{\textbackslash "} & 双引号 & 输出双引号 \\
+                \CodeA{\textbackslash '} & 单引号 & 输出单引号 \\
+                \CodeA{\textbackslash a} & 响铃 & 警报响铃 \\
+                \CodeA{\textbackslash <num><num><num>} & ASCII 字符 & 输出八进制数字对应的 ASCII 字符 \\
+                \CodeA{\textbackslash x<num><num>} & ASCII 字符 & 输出十六进制数字代表的 ASCII 字符 \\
                 \hline
             \end{longtable}
-        
-        \textbf{Notation :}
-            \begin{enumerate}
-                \item \Code{printf('\%c', '\textbackslash 101')} 与 \Code{printf('\%c', 101)} 的输出值分别是 \Code{A} 与 \Code{e}. 这是由于前者按八进制获取 ASCII 字符, 后者进行了隐式的转义, 按照十进制获取 ASCII 字符.
-                \item ASCII 编码中, 数字 0 $\sim$ 9 对应的编码是 48 $\sim$ 47; 大写字母 A $\sim$ Z 对应的编码是 65 $\sim$ 90; 小写字母 a $\sim$ z 对应的编码是 97 $\sim$ 122
-            \end{enumerate}
+
+        \begin{Notation}
+            \item \Code{printf('\%c', '\textbackslash 101')} 与 \Code{printf('\%c', 101)} 的输出值分别是 \Code{A} 与 \Code{e}. 这是由于前者按八进制获取 ASCII 字符, 后者进行了隐式的转义, 按照十进制获取 ASCII 字符.
+            \item ASCII 编码中, 数字 0 $\sim$ 9 对应的编码是 48 $\sim$ 47; 大写字母 A $\sim$ Z 对应的编码是 65 $\sim$ 90; 小写字母 a $\sim$ z 对应的编码是 97 $\sim$ 122
+            \item 除了 \Code{scanf()} 与 \Code{pringf()}, 还可通过 \Code{getchar()} 与 \Code{putchar(<char>)} 来输入/输出单个字符.
+        \end{Notation}
+
+    \subsection{字符串常量}
+        \hspace*{2em} 通过将一串字符用双引号括起 \Code{"<string>"} 来表示字符串常量. 应当注意, C 语言没有内置字符串变量, 所谓的字符串变量是通过字符列表来实现的, 其相当与一个元素为字符, 并以 \Code{\\0} 结尾的字符列表. 所以字符串变量对应的字符串长度, 实际上等于字符串列表的长度减一.
+
+    \subsection{宏}
+        \hspace*{2em} 严格来说, 宏并不是 C 语言的一种内置数据类型, 而是在编译前对源文件进行处理的语句. 预编译语句 \Code{\#define <A> <B>} 的效果是: 在编译时, 将源文件中的 \Code{<A>} 替换为 \Code{<B>}. 如: 可以用语句 \Code{\#define PI 3.1415926} 来定义圆周率 \Code{PI}.
 
 \section{输入与输出}
     \subsection{格式化输出: \Code{printf()}}
@@ -37,7 +154,6 @@
                 printf("<string>");
             \end{lstlisting}
             这条语句将直接输出字符串 \Code{<string>}
-
 
         \paragraph{基本语法}
             \begin{lstlisting}[language = {C}, gobble = 16]
@@ -54,15 +170,15 @@
                     \multicolumn{1}{|c|}{format charactor} & \multicolumn{1}{c|}{meaning} \\
 
                     \hline
-                    \Code{d} & decimal, 以 10 进制形式输出带符号整数, 正数不输出负号 \\
-                    \Code{o} & octal, 以 8 进制形式输出无符号整数, 无前缀 \Code{o} \\
-                    \Code{x} & hexadecimal, 以 16 进制形式输出无符号整数, 无前缀 \Code{ox} \\
-                    \Code{u} & unsign, 以 10 进制输出无符号整数 \\
-                    \Code{f} & float, 以小数形式输出单、双精度实数 \\
-                    \Code{e} & exponential, 以指数形式输出单、双精度实数 \\
-                    \Code{g} & 以 \Code{\%f} 或 \Code{\%e} 中较短的输出宽度输出 \\
-                    \Code{c} & char, 输出单个字符 \\
-                    \Code{s} & string, 输出字符串 \\
+                    \CodeA{d} & decimal, 以 10 进制形式输出带符号整数, 正数不输出负号 \\
+                    \CodeA{o} & octal, 以 8 进制形式输出无符号整数, 无前缀 \CodeA{o} \\
+                    \CodeA{x} & hexadecimal, 以 16 进制形式输出无符号整数, 无前缀 \CodeA{ox} \\
+                    \CodeA{u} & unsign, 以 10 进制输出无符号整数 \\
+                    \CodeA{f} & float, 以小数形式输出单、双精度实数 \\
+                    \CodeA{e} & exponential, 以指数形式输出单、双精度实数 \\
+                    \CodeA{g} & 以 \CodeA{\%f} 或 \CodeA{\%e} 中较短的输出宽度输出 \\
+                    \CodeA{c} & char, 输出单个字符 \\
+                    \CodeA{s} & string, 输出字符串 \\
                     \hline
                 \end{longtable}
                 \item \Code{l/h}: 长度修正符, 用于指定对应位置输出数据是按长类型数据输出还是按短类型数据输出.
@@ -71,10 +187,22 @@
                 \item \Code{-}: 减号可选项, 用于指定对应输出数据的对齐方向. 当选用减号时, 输出数据左对齐, 否则右对齐.
         \end{enumerate}
 
-        \textbf{Notation :}
-            \begin{enumerate}
-                \item 若 \Code{a} 为 \Code{int} 类型的数据, 则表达式 \Code{printf("\%c", a)} 将会输出 \Code{a} 对应的 ASCII 码值.
-            \end{enumerate}
+        \begin{Notation}
+            \item 若 \Code{a} 为 \Code{int} 类型的数据, 则表达式 \Code{printf("\%c", a)} 将会输出 \Code{a} 对应的 ASCII 码值.
+            \item 当输出格式为长型浮点数 \Code{\%lf} 时, 默认输出 6 位小数. (如果只是 \Code{\%f}, 似乎无论单、双精度, 仍是 6 位小数? )
+            \item 对于 32 位的编译器, \Code{\%d} 与 \Code{\%ld} 是相同的.
+            \item 对于整型数据, 若输出域宽大于数的长度, 将会用空格将域宽补全. 若再在域宽前加上 \Code{0}, 则将以 \Code{0} 来填充空格. 如: 以 \Code{\%5d} 的格式输出 \Code{152}, 输出结果将会变为 \verb*|  152|, 如以 \Code{\%05d} 的形式, 则输出结果为 \verb|00152|
+            \item 若以 \Code{\%\#o} 或 \Code{\%\#x} 的形式输出八进制或十六进制数, 则输出结果会对输出的进制进行标识, 八进制用 \Code{0}, 十六进制用 \Code{0x}. 如要输出 100, 采用四种输出格式将会对应如下结果:
+                \begin{longtable}{|c|c|c|}
+                    \caption{输出八进制与十六进制数} \\ \hline
+
+                    输入 & 格式控制字符 & 输出 \\ \hline
+                    \multirow{4}*{\CodeA{100}} & \CodeA{\%o} & \verb|144| \\ \cline{2-3}
+                    & \CodeA{\%\#o} & \verb|0144| \\ \cline{2-3}
+                    & \CodeA{\%x} & \verb|64| \\ \cline{2-3}
+                    & \CodeA{\%\#x} & \verb|0x64| \\ \hline
+                \end{longtable}
+        \end{Notation}
 
 \section{基本运算符和表达式运算}
     \subsection{自增与自减运算符}
