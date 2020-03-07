@@ -205,7 +205,29 @@
         \end{Notation}
 
 \section{基本运算符和表达式运算}
-    \subsection{自增与自减运算符}
+    \subsection{C 语言表达式的概念}
+    \subsection{赋值运算符}
+        \paragraph{类型转换}
+            \hspace*{2em} 当赋值语句两侧的数据类型不一致时, 会自动将右侧数据转换为左侧数据. 具体转换规则有:
+                \begin{enumerate}
+                    \item \textbf{实型 $\to$ 整型:} 不进行四舍五入, 直接舍去所有小数部分.
+                    \item \textbf{整型 $\to$ 实型:} 整数部分不变, 小数部分为 0.
+                    \item \textbf{字符型 $\to$ 整型:} 直接将字符的 ASCII 码放到整型变量的最低八位中.
+                    \item \textbf{整型 $\to$ 字符型:} 将整型数据的低八位值对应的 ASCII 码赋值给字符变量.
+                \end{enumerate}
+
+    \subsection{算数运算符}
+        \paragraph{单目运算符}
+
+        \paragraph{双目运算符}
+            \hspace*{2em} 共有五个: 加号 \Code{+}, 减号 \Code{-}, 乘号 \Code{*}, 除号 \Code{/}, 求模 \Code{\%}.
+
+            \begin{Notation}
+                \item 两个整型数据相除, 结果仍然是整数, 取整方式为截取法.
+                \item 求模运算就是取余数运算, 参与求模运算的两个数必须都是整数, 运算的符号与第一个相同.
+            \end{Notation}
+
+    \subsection{自增自减运算符}
         自增运算符 (\Code{++}) 与自减运算符 (\Code{--}) 用以对变量进行增量赋值. 允许的语法有:
             \begin{lstlisting}[language = {C}, gobble = 16]
                 ++<var_name>;
@@ -216,7 +238,7 @@
 
         \textbf{Notation :}
             \begin{enumerate}
-                \item 前缀模式与后缀模式的返回值是不同的. 前缀模式返回变量进行了增量运算后的值, 后缀模式返回进行增量运算前的值. 如:
+                \item 前缀模式与后缀模式的返回值是不同的. \CJKunderwave{前缀模式返回变量进行了增量运算后的值, 后缀模式返回进行增量运算前的值.} 如:
                     \begin{lstlisting}[language = {C}, gobble = 24]
                         int i = 5, j = 5;
                         printf("%d, %d", ++i, j++);
@@ -227,3 +249,98 @@
                     \end{lstlisting}
                 \item 自增、自减运算不能用于字面量
             \end{enumerate}
+    \subsection{复合赋值运算符}
+
+    \subsection{逗号运算符}
+        \hspace*{2em} 逗号运算符是优先级最低的运算符, 用于将多个表达式连接成一个表达式, 并从左到右进行计算, 并返回最后一个表达式的结果. 一般的语法为:
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                <expr1>,<expr2>,<expr3>...
+            \end{lstlisting}
+
+        \begin{Notation}
+            \item 可以利用逗号表达式进行多个变量的赋值, 如:
+                \begin{lstlisting}[language = {C}, gobble = 20]
+                    a = 1, b = 2, c = 3;
+                \end{lstlisting}
+        \end{Notation}
+
+        \begin{Example}[逗号表达式]
+            可以用括号将逗号表达式进行分隔. 比较下面两个变量 \Code{x}, \Code{y} 的输出的差异:
+                \begin{lstlisting}[language = {C}, gobble = 20]
+                    int x, y;
+                    x = 1, 2, 3, 4;
+                    y = (1, 2, 3, 4);
+                    printf("x = %d, y = %d", x, y)
+                \end{lstlisting}
+            输出结果为:
+                \begin{lstlisting}[gobble = 20]
+                    x = 1, y = 4
+                \end{lstlisting}
+        \end{Example}
+
+    \subsection{\texttt{sizeof} 运算符}
+        \hspace*{2em} \Code{sizeof} 运算符的功能是返回其所测试的数据对象所占存储单元的字节数. 基本语法为:
+            \begin{lstlisting}[language = {C}, gobble = 16]
+                sizeof(<var>)
+            \end{lstlisting}
+
+        其中 \Code{<var>} 可以是:
+            \begin{enumerate}
+                \item 某个具体的变量名
+                \item 某种数据类型常量
+                \item 某种数据类型的名字. 这也包括数组、结构体等构造数据类型
+                \item 一个合法的 C 表达式. 此时不会进行具体的计算, 而只是得出计算结果的数据类型, 并返回该数据类型对应的存储空间大小.
+            \end{enumerate}
+
+    \subsection{数据类型转换}
+        \hspace*{2em} 大致可分为\,\textbf{隐式转换}\,与\,\textbf{强制转换.}
+
+        \paragraph{隐式转换 \\}
+            \hspace*{2em} 转换的方式如图\ref{fig: 隐式转换规则}所示. 其中:
+                \begin{figure}[ht]
+                    \centering
+                        \begin{tikzpicture}
+                            \matrix [matrix of nodes, column sep = 3mm, row sep = 5mm] {
+                                |(a)| 高 & |(b)| \CodeA{double} & |(c)| \CodeA{float} \\
+                                & |(d)| \CodeA{long} &  \\
+                                & |(e)| \CodeA{unsigned} &  \\
+                                |(f)| 低 & |(g)| \CodeA{int} & |(h)| \CodeA{short}, \CodeA{char} \\
+                            };
+
+                            \draw [-stealth] (f) -- (a);
+
+                            { [start chain, every on chain/.style={join=by -stealth}]
+                                \chainin (c); \chainin(b);
+                            }
+
+                            { [start chain, every on chain/.style={join=by -stealth}]
+                                \chainin (h); \chainin(g); \chainin (e); \chainin (d); \chainin (b);
+                            }
+                        \end{tikzpicture}
+                    \caption{隐式转换规则}\label{fig: 隐式转换规则}
+                \end{figure}
+
+                \begin{enumerate}
+                    \item 纵向: 进行运算时, 若存在优先级较高的部分, 则优先级低的向优先级高的转换
+                    \item 横向: 无条件转换. (比如两个 \Code{char} 型数据相加将会强制转换为 \Code{int} 型数据? )
+                \end{enumerate}
+
+        \paragraph{显式转换 \\}
+            \hspace*{2em} 下面的语句将表达式的结果转换成指定的类型进行输出:
+                \begin{lstlisting}[language = {C}, gobble = 20]
+                    (<type>)(<expr>)
+                \end{lstlisting}
+
+            \begin{Example}[显示转换]
+                \begin{lstlisting}[language = {C}, gobble = 20]
+                    double f = 4.56f;
+                    int zf;
+                    zf = (int)(f + 1);
+                    printf("zf = %d, f = %.2lf\n", zf, f);
+                \end{lstlisting}
+
+                输出结果为: 
+                \begin{lstlisting}[gobble = 20]
+                    zf = 5, f = 4.56
+                \end{lstlisting}
+            \end{Example}
