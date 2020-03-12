@@ -207,7 +207,7 @@
 \section{基本运算符和表达式运算}
     \subsection{C 语言表达式的概念}
     \subsection{赋值运算符}
-        \paragraph{类型转换}
+        \paragraph{类型转换 \\}
             \hspace*{2em} 当赋值语句两侧的数据类型不一致时, 会自动将右侧数据转换为左侧数据. 具体转换规则有:
                 \begin{enumerate}
                     \item \textbf{实型 $\to$ 整型:} 不进行四舍五入, 直接舍去所有小数部分.
@@ -332,6 +332,7 @@
                 \end{lstlisting}
 
             \begin{Example}[显示转换]
+                \vspace*{-1.5em}
                 \begin{lstlisting}[language = {C}, gobble = 20]
                     double f = 4.56f;
                     int zf;
@@ -344,3 +345,116 @@
                     zf = 5, f = 4.56
                 \end{lstlisting}
             \end{Example}
+
+\section{C 语言标准库}
+    \subsection{标准库函数的调用}
+        \hspace*{2em} 可以通过预编译语句 \Code{\#include} 调用调用标准库, 其两种调用语法为 (这里以大括号表示输入内容):
+            \begin{lstlisting}[gobble = 16]
+                #include <{head_doc}>
+                #include "{head_doc}"
+            \end{lstlisting}
+
+        如调用数学标准库函数:
+            \begin{lstlisting}[gobble = 16]
+                #include <math.h>
+            \end{lstlisting}
+
+        常见的标准库函数见表 \ref{tab: 常见标准库函数}.
+
+        \begin{table}[htbp]
+            \caption{常见标准库函数}\label{tab: 常见标准库函数}
+
+            \centering
+            \begin{tabular}{|c|c|}
+                \hline
+                \textbf{功能} & \textbf{对应头文件} \\ \hline
+                标准输入/输出 & \CodeA{stdio.h} \\ \hline
+                数学类        & \CodeA{math.h} 或 \CodeA{stdlib.h} \\ \hline
+                字符串处理类  & \CodeA{string.h} \\ \hline
+                存储分配类    & \CodeA{stdlib.h} \\ \hline
+                时间类        & \CodeA{time.h} \\ \hline
+            \end{tabular}
+        \end{table}
+
+    \subsection{常用数学标准库函数}
+        \paragraph{求绝对值 \\}
+            \hspace*{2em} 以下是求绝对值类数学函数:
+
+            \begin{table}[H]
+                \caption{绝对值类数学函数}
+
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{声明格式}              & \textbf{头文件}  & \textbf{描述} \\ \hline
+                    \CodeA{int abs(int n);}        & \CodeA{stdlib.h} & 求整型数据的绝对值 \\ \hline
+                    \CodeA{long labs(long int n);} & \CodeA{stdlib.h} & 求长整型数据的绝对值 \\ \hline
+                    \CodeA{double fabs(double x);} & \CodeA{math.h}   & 求双精度实型数据的绝对值 \\ \hline
+                \end{tabular}
+            \end{table}
+
+
+        \paragraph{求余数 \\}
+            \hspace*{2em} 由于默认的求余运算符只对整数有效, 因此需要特殊函数来完成对浮点数的求余运算:
+            \begin{table}[H]
+                \caption{求余数类数学函数}
+
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{声明格式}                        & \textbf{头文件} & \textbf{描述} \\ \hline
+                    \CodeA{double fmod(double x, double y);} & \CodeA{math.h}  & 求 \CodeA{x} 对 \CodeA{y} 的余数 \\ \hline
+                \end{tabular}
+            \end{table}
+
+        \paragraph{取整 \\}
+            \hspace*{2em} 以下是取整类数学函数:
+
+            \begin{table}[H]
+                \caption{取整类数学函数}
+
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{声明格式}               & \textbf{头文件} & \textbf{描述} \\ \hline
+                    \CodeA{double floor(double x);} & \CodeA{math.h}  & 向下舍入 \\ \hline
+                    \CodeA{double ceil(double x);}  & \CodeA{math.h}  & 向上舍入 \\ \hline
+                \end{tabular}
+            \end{table}
+
+        \paragraph{三角函数 \\}
+            \hspace*{2em} 以下是三角函数类数学函数:
+
+            \begin{table}[H]
+                \caption{三角函数类数学函数}
+
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{声明格式}              & \textbf{头文件} & \textbf{描述} \\ \hline
+                    \CodeA{double sin(double x);}  & \CodeA{math.h}  & 求 $\sin(x)$ \\ \hline
+                    \CodeA{double cos(double x);}  & \CodeA{math.h}  & 求 $\cos(x)$ \\ \hline
+                    \CodeA{double tan(double x);}  & \CodeA{math.h}  & 求 $\tan(x)$ \\ \hline
+                    \CodeA{double sinh(double x);} & \CodeA{math.h}  & 求 $\sinh(x)$ \\ \hline
+                    \CodeA{double cosh(double x);} & \CodeA{math.h}  & 求 $\cosh(x)$ \\ \hline
+                    \CodeA{double tanh(double x);} & \CodeA{math.h}  & 求 $\tanh(x)$ \\ \hline
+                \end{tabular}
+            \end{table}
+
+        \paragraph{指数及对数 \\}
+            \hspace*{2em} 以下是指数及对数类数学函数:
+
+            \begin{table}[H]
+                \caption{指数及对数类数学函数}
+
+                \centering
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{声明格式}                       & \textbf{头文件} & \textbf{描述} \\ \hline
+                    \CodeA{double exp(double x);}           & \CodeA{math.h}  & 求 $e^x$ \\ \hline
+                    \CodeA{double pow(double x, double y);} & \CodeA{math.h}  & 求 $x^{y}$ \\ \hline
+                    \CodeA{double log(double x);}           & \CodeA{math.h}  & 求 $\ln(x)$ \\ \hline
+                    \CodeA{double log10(double x);}         & \CodeA{math.h}  & 求 $\lg(x)$ \\ \hline
+                    \CodeA{double sqrt(double x);}          & \CodeA{math.h}  & 求 $\sqrt{x}$ \\ \hline
+                \end{tabular}
+            \end{table}
