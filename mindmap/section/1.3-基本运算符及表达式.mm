@@ -2,8 +2,8 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="1.3 C &#x8bed;&#x8a00;&#x57fa;&#x672c;&#x8fd0;&#x7b97;&#x7b26;&#x548c;&#x8868;&#x8fbe;&#x5f0f;&#x8fd0;&#x7b97;" LOCALIZED_STYLE_REF="AutomaticLayout.level.root" FOLDED="false" ID="ID_1840553103" CREATED="1583480645796" MODIFIED="1583482844259">
 <font NAME="Kai" SIZE="22" BOLD="false"/>
-<hook NAME="MapStyle">
-    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" fit_to_viewport="false"/>
+<hook NAME="MapStyle" zoom="0.606">
+    <properties fit_to_viewport="false" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -127,7 +127,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <richcontent TYPE="DETAILS">
 
@@ -177,7 +176,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x7ed3;&#x5408;&#x6027;" ID="ID_367801547" CREATED="1583484866217" MODIFIED="1583484882744"><richcontent TYPE="DETAILS">
@@ -192,7 +190,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="&#x5de6;&#x7ed3;&#x5408;" ID="ID_1386296770" CREATED="1583504461325" MODIFIED="1583505168202" TEXT_ALIGN="CENTER"><richcontent TYPE="DETAILS">
 
@@ -206,7 +203,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x53f3;&#x7ed3;&#x5408;" ID="ID_1472358432" CREATED="1583504593705" MODIFIED="1583505294576" TEXT_ALIGN="CENTER"><richcontent TYPE="DETAILS">
@@ -221,7 +217,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -237,7 +232,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x7c7b;&#x578b;&#x8f6c;&#x5316;" ID="ID_105914217" CREATED="1583485140616" MODIFIED="1583485203494"><richcontent TYPE="DETAILS">
@@ -252,7 +246,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -270,7 +263,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x53cc;&#x76ee;&#x8fd0;&#x7b97;&#x7b26;" ID="ID_316447758" CREATED="1583486533838" MODIFIED="1583487613769"><richcontent TYPE="DETAILS">
@@ -285,7 +277,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -303,7 +294,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x540e;&#x7f00;&#x6a21;&#x5f0f;" ID="ID_119674" CREATED="1583488600455" MODIFIED="1583488635588"><richcontent TYPE="DETAILS">
@@ -318,7 +308,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -336,7 +325,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x4f4d;&#x8fd0;&#x7b97;&#x7c7b;" ID="ID_41688810" CREATED="1583505332375" MODIFIED="1583505943697"><richcontent TYPE="DETAILS">
@@ -351,7 +339,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="&#x5176;&#x5b83;" ID="ID_1597860736" CREATED="1583505355803" MODIFIED="1583506013403"><richcontent TYPE="DETAILS">
@@ -366,7 +353,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -385,7 +371,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <edge COLOR="#00007c"/>
 </node>
